@@ -2,10 +2,10 @@
 using namespace std;
 
 int main(){
-	int small_room_charge {25};
-	int big_room_charge {35};
-	float tax_rate{ 0.06 };
-	int valid_date{ 30 };
+	const int small_room_charge {25};
+	const int big_room_charge {35};
+	const float tax_rate{ 0.06 };
+	const int valid_date{ 30 };
 
 	cout << "Hello, welcome to Frank's Carpet Cleaning Service" << endl;
 	cout << "\nHow many small rooms would you like cleaned? ";
