@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int main{
+int main(){
 	int small_room_charge {25};
 	int big_room_charge {35};
 	float tax_rate{ 0.06 };
@@ -21,10 +21,10 @@ int main{
 	cout << "\nEstimate for carpet cleaning service" << endl;
 	cout << "Number of small rooms: " << small_room_number << endl;
 	cout << "Number of big rooms: " << big_room_number << endl;
-	cout << "Price per small room: " << small_room_charge << endl;
-	cout << "Price per big rooms: " << big_room_charge << endl;
-	cout << "Cost: " << cost << endl;
-	cout << "Tax: " << tax_cost << endl;
+	cout << "Price per small room: $" << small_room_charge << endl;
+	cout << "Price per big rooms: $" << big_room_charge << endl;
+	cout << "Cost: $" << cost << endl;
+	cout << "Tax: $" << tax_cost << endl;
 	cout << "=================" << endl;
 	cout << "Total estimate: $" << total_cost << endl;
 	cout << "Estimate is vaild for " << valid_date << " days" << endl;
