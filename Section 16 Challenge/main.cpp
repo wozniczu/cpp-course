@@ -1,112 +1,90 @@
-// Section 17
-// Challenge 1
-/***********************************************************************************************************
-Create a program that has the following:
-
-1. a function named make that creates and returns a unique_ptr to a vector of shared_ptrs to Test objects.
-
-2. a function named fill that expects a vector of shared pointers to Test objects and a int
-   representing the number of Test objects to create dynamically and add to the vector.
-
-   This function will prompt the user to enter an integer, create a shared_ptr to a Test object
-   initialized to the entered integer and add that shared pointer to the vector.
-
-3. a function named display that expects a vector of shared_ptrs to Test object and displays the
-   data in each Test object
-
-4. The main driver should look as follows:
-
-    int main() {
-        std::unique_ptr<std::vector<std::shared_ptr<Test>>> vec_ptr;
-        vec_ptr = make();
-        std::cout << "How many data points do you want to enter: ";
-        int num;
-        std::cin >> num;
-        fill(*vec_ptr, num);
-        display(*vec_ptr);
-        return 0;
-    }
-
-Below is a sample run for the user entering 3 at the console:
-
-How many data points do you want to enter: 3
-Enter data point [1] : 10
-        Test constructor (10)
-Enter data point [2] : 20
-        Test constructor (20)
-Enter data point [3] : 30
-        Test constructor (30)
-Displaying vector data
-=======================
-10
-20
-30
-=======================
-        Test destructor (10)
-        Test destructor (20)
-        Test destructor (30)
-
-- I am providing the function prototypes in the code.
-However, feel free to modify these as you wish
-***********************************************************************************************************/
+// Section 16 
+// Challenge 
 #include <iostream>
-#include <memory>
 #include <vector>
+#include "Account.h"
+#include "Savings_Account.h"
+#include "Checking_Account.h"
+#include "Trust_Account.h"
+#include "Account_Util.h"
 
-class Test {
-private:
-    int data;
-public:
-    Test() : data{ 0 } { std::cout << "\tTest constructor (" << data << ")" << std::endl; }
-    Test(int data) : data{ data } { std::cout << "\tTest constructor (" << data << ")" << std::endl; }
-    int get_data() const { return data; }
-    ~Test() { std::cout << "\tTest destructor (" << data << ")" << std::endl; }
-};
-
-// Function prototypes
-std::unique_ptr<std::vector<std::shared_ptr<Test>>> make();
-void fill(std::vector<std::shared_ptr<Test>>& vec, int num);
-void display(const std::vector<std::shared_ptr<Test>>& vec);
+using namespace std; 
 
 int main() {
-    std::unique_ptr<std::vector<std::shared_ptr<Test>>> vec_ptr;
-    vec_ptr = make();
-    std::cout << "How many data points do you want to enter: ";
-    int num;
-    std::cin >> num;
-    fill(*vec_ptr, num);
-    display(*vec_ptr);
+    cout.precision(2);
+    cout << fixed;
+   
+   // // Accounts
+   // vector<Account> accounts;
+   // accounts.push_back(Account {});
+   // accounts.push_back(Account {"Larry"});
+   // accounts.push_back(Account {"Moe", 2000} );
+   // accounts.push_back(Account {"Curly", 5000} );
+   // 
+   // display(accounts);
+   // deposit(accounts, 1000);
+   // withdraw(accounts,2000);
+   // 
+   // // Savings 
+
+   // vector<Savings_Account> sav_accounts;
+   // sav_accounts.push_back(Savings_Account {} );
+   // sav_accounts.push_back(Savings_Account {"Superman"} );
+   // sav_accounts.push_back(Savings_Account {"Batman", 2000} );
+   // sav_accounts.push_back(Savings_Account {"Wonderwoman", 5000, 5.0} );
+
+   // display(sav_accounts);
+   // deposit(sav_accounts, 1000);
+   // withdraw(sav_accounts,2000);
+   //
+   //// Checking
+   //
+   // vector<Checking_Account> check_accounts;
+   // check_accounts.push_back(Checking_Account {} );
+   // check_accounts.push_back(Checking_Account {"Kirk"} );
+   // check_accounts.push_back(Checking_Account {"Spock", 2000} );
+   // check_accounts.push_back(Checking_Account {"Bones", 5000} );
+
+   // display(check_accounts);
+   // deposit(check_accounts, 1000);
+   // withdraw(check_accounts, 2000);
+
+   // // Trust
+  
+   // vector<Trust_Account> trust_accounts;
+   // trust_accounts.push_back(Trust_Account {} );
+   // trust_accounts.push_back(Trust_Account {"Athos", 10000, 5.0} );
+   // trust_accounts.push_back(Trust_Account {"Porthos", 20000, 4.0} );
+   // trust_accounts.push_back(Trust_Account {"Aramis", 30000} );
+
+   // display(trust_accounts);
+   // deposit(trust_accounts, 1000);
+   // withdraw(trust_accounts, 3000);
+   // 
+   // // Withdraw 5 times from each trust account
+   // // All withdrawals should fail if there are too many withdrawals or if the withdrawl is > 20% of the balance
+   // for (int i=1; i<=5; i++)
+   //     withdraw(trust_accounts, 1000);
+    Account* p1 = new Trust_Account( "Athos", 10000, 5.0 );
+    Account* p2 = new Checking_Account("XXX",50.);
+    vector<Account *> trust_accounts;
+    trust_accounts.push_back(p1);
+    trust_accounts.push_back(p2);
+    for (auto& elem : trust_accounts)
+        cout << *elem << endl;
+
+    Checking_Account c;
+    cout << c << endl;
+    Savings_Account d{ "YYY",5000,2.6 };
+    cout << d << endl;
+    d.deposit(10000);
+    cout << d << endl;
+    d.withdraw(10000);
+    cout << d << endl;
+
+    Account* ptr = new Trust_Account("Athos", 10000, 5.0);
+    cout << *ptr << endl;
+
     return 0;
 }
 
-std::unique_ptr<std::vector<std::shared_ptr<Test>>> make()
-{
-    std::unique_ptr<std::vector<std::shared_ptr<Test>>> ptr = std::make_unique<std::vector<std::shared_ptr<Test>>>();
-    return ptr;
-}
-
-void fill(std::vector<std::shared_ptr<Test>>& vec, int num)
-{
-    int number{};
-    for (int i{}; i < num; i++)
-    {
-        std::cout << "Enter data point [" << i + 1 << "] : ";
-        std::cin >> number;
-        int x = number;
-
-        std::shared_ptr<Test> ptr = std::make_shared<Test>(number);
-        vec.push_back(ptr);
-    }
-}
-
-void display(const std::vector<std::shared_ptr<Test>>& vec)
-{
-    std::cout << "======================" << std::endl;
-    for (auto elem : vec)
-    {
-        std::cout << (*elem).get_data();
-        std::cout << std::endl;
-    }
-    std::cout << "======================" << std::endl;
-
-}
